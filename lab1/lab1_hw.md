@@ -1,7 +1,7 @@
 ---
 title: "Lab 1 Homework"
-author: "Please Add Your Name Here"
-date: "2024-01-10"
+author: "Mariana Montalvo"
+date: "2024-01-11"
 output:
   html_document: 
     theme: spacelab
@@ -40,7 +40,7 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 ## [1] 8
 ```
 
-**5. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.**    
+**5. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 8.**    
 
 
 
