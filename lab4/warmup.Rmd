@@ -1,0 +1,40 @@
+
+## 1. Load the libraries
+```{r}
+library("tidyverse")
+```
+```{r}
+library(palmerpenguins)
+```
+
+## 2. dimensions of "penguins"
+```{r}
+dim(penguins)
+```
+
+## 3. names of variables
+```{r}
+names(penguins)
+```
+
+```{r}
+penguins
+```
+## 4. How many individuals?
+```{r}
+penguins <- penguins
+```
+
+```{r}
+table(penguins$island)
+```
+
+```{r}
+summary(penguins$island)
+```
+
+## 5. mean body mass
+```{r}
+mean(penguins$body_mass_g, na.rm=T)
+```
+
