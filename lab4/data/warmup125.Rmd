@@ -1,0 +1,37 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+fish <- read_csv("Gaeta_etal_CLC_data.csv")
+```
+```{r}
+fishlength <- select(fish, "lakeid", "length")
+fishlength
+```
+## filter the fish for lake BO
+```{r}
+glimpse(fish)
+```
+```{r}
+filter(fish, lakeid=="BO")
+```
+## calculate mean length of BO fish.
+```{r}
+fish_bo <- filter(fish, lakeid=="BO")
+```
+
+```{r}
+mean(fish_bo$length)
+```
+
