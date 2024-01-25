@@ -264,6 +264,15 @@ table(homerange$taxon)
 
 **6. The species in `homerange` are also classified into trophic guilds. How many species are represented in each trophic guild.**  
 
+```r
+table(homerange$trophic.guild)
+```
+
+```
+## 
+## carnivore herbivore 
+##       342       227
+```
 
 **7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.**  
 
