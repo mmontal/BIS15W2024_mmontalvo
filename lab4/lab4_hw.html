@@ -11,7 +11,7 @@
 
 <meta name="author" content="Mariana Montalvo" />
 
-<meta name="date" content="2024-01-25" />
+<meta name="date" content="2024-01-29" />
 
 <title>Lab 4 Homework</title>
 
@@ -376,7 +376,7 @@ display: none;
 
 <h1 class="title toc-ignore">Lab 4 Homework</h1>
 <h4 class="author">Mariana Montalvo</h4>
-<h4 class="date">2024-01-25</h4>
+<h4 class="date">2024-01-29</h4>
 
 </div>
 
@@ -631,14 +631,67 @@ herbivores</code></pre>
 ## #   PPMR &lt;dbl&gt;, prey.size.reference &lt;chr&gt;</code></pre>
 <p><strong>8. Do herbivores or carnivores have, on average, a larger
 <code>mean.hra.m2</code>? Remove any NAs from the data.</strong></p>
+<pre class="r"><code>mean(carnivores$mean.hra.m2)</code></pre>
+<pre><code>## [1] 13039918</code></pre>
+<pre class="r"><code>mean(herbivores$mean.hra.m2)</code></pre>
+<pre><code>## [1] 34137012</code></pre>
+</div>
+<div id="herbivores-have-on-average-a-larger-mean." class="section level2">
+<h2>Herbivores have on average a larger mean.</h2>
 <p><strong>9. Make a new dataframe <code>owls</code> that is limited to
 the mean mass, log10 mass, family, genus, and species of owls in the
 database. Which is the smallest owl? What is its common name? Do a
 little bit of searching online to see what you can learn about this
 species and provide a link below</strong></p>
+<pre class="r"><code>owls &lt;- homerange %&gt;% 
+  select(mean.mass.g, log10.mass, family, genus, species, common.name) %&gt;% 
+  filter(family==&quot;strigidae&quot;) %&gt;% 
+  arrange(mean.mass.g)
+owls</code></pre>
+<pre><code>## # A tibble: 8 × 6
+##   mean.mass.g log10.mass family    genus      species     common.name       
+##         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;             
+## 1        61.3       1.79 strigidae glaucidium passerinum  Eurasian pygmy owl
+## 2       119         2.08 strigidae aegolius   funereus    boreal owl        
+## 3       156.        2.19 strigidae athene     noctua      little owl        
+## 4       252         2.40 strigidae asio       otus        long-eared owl    
+## 5       519         2.72 strigidae strix      aluco       tawny owl         
+## 6      1510         3.18 strigidae bubo       virginianus great horned owl  
+## 7      1920         3.28 strigidae nyctea     scandiaca   snowy owl         
+## 8      2191         3.34 strigidae bubo       bubo        Eurasian eagle-owl</code></pre>
+</div>
+<div id="the-smallest-owl-is-passerinum-its-common-name-is-eurasian-pygmy-owl.-these-owls-are-native-to-the-central-paleartic-region-and-are-found-in-coniferous-forests.-more-information-about-this-owl-can-be-found-here-httpsanimaldiversity.orgaccountsglaucidium_passerinum" class="section level2">
+<h2>The smallest owl is passerinum, its common name is Eurasian pygmy
+owl. These owls are native to the central Paleartic region and are found
+in coniferous forests. More information about this owl can be found
+here: <a href="https://animaldiversity.org/accounts/Glaucidium_passerinum/" class="uri">https://animaldiversity.org/accounts/Glaucidium_passerinum/</a></h2>
 <p><strong>10. As measured by the data, which bird species has the
 largest homerange? Show all of your work, please. Look this species up
 online and tell me about it!</strong>.</p>
+<pre class="r"><code>largest_homerange &lt;- select (homerange, &quot;class&quot;, &quot;mean.hra.m2&quot;, &quot;species&quot;, &quot;common.name&quot;)</code></pre>
+<pre class="r"><code>largest_homerange %&gt;% 
+  filter(class ==&quot;aves&quot;) %&gt;% 
+  arrange(desc(mean.hra.m2))</code></pre>
+<pre><code>## # A tibble: 140 × 4
+##    class mean.hra.m2 species      common.name           
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;                 
+##  1 aves    241000000 cheriway     caracara              
+##  2 aves    200980000 pygargus     Montagu&#39;s harrier     
+##  3 aves    153860000 peregrinus   peregrine falcon      
+##  4 aves    117300000 pennatus     booted eagle          
+##  5 aves     84300000 camelus      ostrich               
+##  6 aves     78500000 gallicus     short-toed snake eagle
+##  7 aves     63585000 turtur       European turtle dove  
+##  8 aves     63570000 percnopterus Egyptian vulture      
+##  9 aves     50240000 buteo        common buzzard        
+## 10 aves     50000000 biarmicus    lanner falcon         
+## # ℹ 130 more rows</code></pre>
+</div>
+<div id="the-caracara-has-the-largest-homerange.-they-are-black-and-white-birds-with-yellow-orange-bills.-they-live-in-open-country-and-perch-on-trees-and-poles-and-fences.-more-information-can-be-found-at-the-following-website-httpswww.allaboutbirds.orgguidecrested_caracaraid" class="section level2">
+<h2>The caracara has the largest homerange. They are black and white
+birds with yellow-orange bills. They live in open country and perch on
+trees and poles and fences. More information can be found at the
+following website: <a href="https://www.allaboutbirds.org/guide/Crested_Caracara/id#" class="uri">https://www.allaboutbirds.org/guide/Crested_Caracara/id#</a></h2>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
 <h2>Push your final code to GitHub!</h2>

@@ -95,26 +95,40 @@ herbivores
 
 **8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**
 ```{r}
+mean(carnivores$mean.hra.m2)
+```
 
+```{r}
+mean(herbivores$mean.hra.m2)
 ```
 
 ```{r}
 
 ```
 
-```{r}
-
-```
+## Herbivores have on average a larger mean.
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
 ```{r}
-
+owls <- homerange %>% 
+  select(mean.mass.g, log10.mass, family, genus, species, common.name) %>% 
+  filter(family=="strigidae") %>% 
+  arrange(mean.mass.g)
+owls
 ```
+## The smallest owl is passerinum, its common name is Eurasian pygmy owl. These owls are native to the central Paleartic region and are found in coniferous forests. More information about this owl can be found here: https://animaldiversity.org/accounts/Glaucidium_passerinum/
 
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
 ```{r}
-
+largest_homerange <- select (homerange, "class", "mean.hra.m2", "species", "common.name")
 ```
+
+```{r}
+largest_homerange %>% 
+  filter(class =="aves") %>% 
+  arrange(desc(mean.hra.m2))
+```
+## The caracara has the largest homerange. They are black and white birds with yellow-orange bills. They live in open country and perch on trees and poles and fences. More information can be found at the following website: https://www.allaboutbirds.org/guide/Crested_Caracara/id#
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   

@@ -1,7 +1,7 @@
 ---
 title: "Lab 4 Homework"
 author: "Mariana Montalvo"
-date: "2024-01-25"
+date: "2024-01-29"
 output:
   html_document: 
     theme: spacelab
@@ -334,16 +334,82 @@ herbivores
 
 **8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**
 
+```r
+mean(carnivores$mean.hra.m2)
+```
+
+```
+## [1] 13039918
+```
+
+
+```r
+mean(herbivores$mean.hra.m2)
+```
+
+```
+## [1] 34137012
+```
 
 
 
-
+## Herbivores have on average a larger mean.
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
 
+```r
+owls <- homerange %>% 
+  select(mean.mass.g, log10.mass, family, genus, species, common.name) %>% 
+  filter(family=="strigidae") %>% 
+  arrange(mean.mass.g)
+owls
+```
+
+```
+## # A tibble: 8 × 6
+##   mean.mass.g log10.mass family    genus      species     common.name       
+##         <dbl>      <dbl> <chr>     <chr>      <chr>       <chr>             
+## 1        61.3       1.79 strigidae glaucidium passerinum  Eurasian pygmy owl
+## 2       119         2.08 strigidae aegolius   funereus    boreal owl        
+## 3       156.        2.19 strigidae athene     noctua      little owl        
+## 4       252         2.40 strigidae asio       otus        long-eared owl    
+## 5       519         2.72 strigidae strix      aluco       tawny owl         
+## 6      1510         3.18 strigidae bubo       virginianus great horned owl  
+## 7      1920         3.28 strigidae nyctea     scandiaca   snowy owl         
+## 8      2191         3.34 strigidae bubo       bubo        Eurasian eagle-owl
+```
+## The smallest owl is passerinum, its common name is Eurasian pygmy owl. These owls are native to the central Paleartic region and are found in coniferous forests. More information about this owl can be found here: https://animaldiversity.org/accounts/Glaucidium_passerinum/
 
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
 
+```r
+largest_homerange <- select (homerange, "class", "mean.hra.m2", "species", "common.name")
+```
+
+
+```r
+largest_homerange %>% 
+  filter(class =="aves") %>% 
+  arrange(desc(mean.hra.m2))
+```
+
+```
+## # A tibble: 140 × 4
+##    class mean.hra.m2 species      common.name           
+##    <chr>       <dbl> <chr>        <chr>                 
+##  1 aves    241000000 cheriway     caracara              
+##  2 aves    200980000 pygargus     Montagu's harrier     
+##  3 aves    153860000 peregrinus   peregrine falcon      
+##  4 aves    117300000 pennatus     booted eagle          
+##  5 aves     84300000 camelus      ostrich               
+##  6 aves     78500000 gallicus     short-toed snake eagle
+##  7 aves     63585000 turtur       European turtle dove  
+##  8 aves     63570000 percnopterus Egyptian vulture      
+##  9 aves     50240000 buteo        common buzzard        
+## 10 aves     50000000 biarmicus    lanner falcon         
+## # ℹ 130 more rows
+```
+## The caracara has the largest homerange. They are black and white birds with yellow-orange bills. They live in open country and perch on trees and poles and fences. More information can be found at the following website: https://www.allaboutbirds.org/guide/Crested_Caracara/id#
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
