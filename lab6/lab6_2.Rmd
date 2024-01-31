@@ -2,10 +2,11 @@
 title: "dplyr Superhero"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
-    toc: yes
-    toc_float: yes
+    toc: true
+    toc_float: true
+    keep_md: true
 ---
 
 ## Learning Goals  
@@ -104,28 +105,83 @@ good_guys %>%
 8. Among the bad guys, who are the male humans over 200 inches in height?
 ```{r}
 bad_guys %>% 
-  select(name, gender, height) %>% 
-  filter(gender=="male" & height>200)
+  select(name, gender, height, race) %>% 
+  filter(gender=="male", height>200, race=="human")
 ```
 
-
 9. Are there more good guys or bad guys with green hair?  
+```{r}
+good_guys %>% 
+  select(name, hair_color) %>% 
+  filter(hair_color=="green")
+```
 
-10. Let's explore who the really small superheros are. In the `superhero_info` data, which have a weight less than 50? Be sure to sort your results by weight lowest to highest.  
+```{r}
+bad_guys %>% 
+  select(name, hair_color) %>% 
+  filter(hair_color=="green")
+```
+### There are more good guys with green hair. 
+```{r}
+glimpse(superhero_info)
+```
 
-11. Let's make a new variable that is the ratio of height to weight. Call this variable `height_weight_ratio`.    
+10. Let's explore who the really small superheros are. In the `superhero_info` data, which have a weight less than 50? Be sure to sort your results by weight lowest to highest. 
+```{r}
+small_superheros <- superhero_info %>% 
+  mutate(weight_new= as.numeric(weight)) %>% 
+  select(name, weight_new) %>% 
+  filter(weight_new<50) %>% 
+  arrange(weight_new)
+small_superheros
+```
+
+11. Let's make a new variable that is the ratio of height to weight. Call this variable `height_weight_ratio`.
+```{r}
+superhero_info %>%
+  mutate(weight_new= as.numeric(weight)) %>% 
+  mutate(height_new= as.numeric(height)) %>% 
+  mutate(height_weight_ratio= height_new/weight_new) %>% select(name, height_new, weight_new, height_weight_ratio)
+```
 
 12. Who has the highest height to weight ratio?  
+```{r}
+superhero_info %>%
+  mutate(weight_new= as.numeric(weight)) %>% 
+  mutate(height_new= as.numeric(height)) %>% 
+  mutate(height_weight_ratio= height_new/weight_new) %>% select(name, height_new, weight_new, height_weight_ratio) %>% 
+  arrange(desc(height_weight_ratio))
+```
+### Groot
 
 ## `superhero_powers`
-Have a quick look at the `superhero_powers` data frame.  
+Have a quick look at the `superhero_powers` data frame. 
+```{r}
+glimpse(superhero_powers)
+```
 
 13. How many superheros have a combination of agility, stealth, super_strength, stamina?
+```{r}
+superhero_powers <- clean_names(superhero_powers)
+```
+
+```{r}
+superhero_powers %>% 
+  select(hero_names, agility, stealth, super_strength, stamina) %>% filter(agility=="TRUE", stealth=="TRUE", super_strength=="TRUE", stamina=="TRUE")
+```
 
 ## Your Favorite
-14. Pick your favorite superhero and let's see their powers!  
+14. Pick your favorite superhero and let's see their powers!
+```{r}
+superhero_powers %>% 
+  filter(hero_names=="Spider-Man")
+```
 
 15. Can you find your hero in the superhero_info data? Show their info!  
+```{r}
+superhero_info %>% 
+  filter(name=="spider-man")
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  
