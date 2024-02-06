@@ -1,12 +1,12 @@
 ---
 title: "summarize practice, `count()`, `across()`"
-date: "2024-02-01"
+date: "2024-02-05"
 output:
   html_document: 
     theme: spacelab
-    toc: yes
-    toc_float: yes
-    keep_md: yes
+    toc: true
+    toc_float: true
+    keep_md: true
   pdf_document:
     toc: yes
 ---
