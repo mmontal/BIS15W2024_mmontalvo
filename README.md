@@ -8,6 +8,8 @@
 
 ###### This repository is for assignments and files for BIS 15L at UC Davis. 
 
+###### Homework files can be found under "homework" folder.
+
 # **_Contact Info_**  
 
 [Mariana Montalvo](memontalvo@ucdavis.edu)
