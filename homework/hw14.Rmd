@@ -1,8 +1,10 @@
 ---
 title: "Homework 14"
-author: "Your Name"
+author: "Mariana Montalvo"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document: 
+    keep_md: true
 ---
 
 ```{r setup, include=FALSE}
@@ -20,11 +22,12 @@ Again make sure to use the formatting conventions of RMarkdown to make your repo
 library(tidyverse)
 library(janitor)
 library(dplyr)
+library(here)
 ```
 
 1.
 ```{r}
-blood_count <- read_csv("data/blood_count.csv") %>% clean_names()
+blood_count <- read_csv(here("lab15/data/blood_count_dataset.csv")) %>% clean_names()
 ```
 
 2. 
@@ -44,20 +47,19 @@ blood_count %>%
 
 4. 
 ```{r}
-options(scipen = 999, digits = 2)
+options(scipen = 999, digits = 2) 
 
 blood_count %>% 
-  filter(Gender = "male") %>%
-  select[3:9] %>%
-  colMeans(na.rm = TRUE)
-
+  filter(gender == "male") %>%
+  select(3:9) %>%
+  colMeans(na.rm = T)
 ```
 
 5. 
 ```{r}
-bloood_count %>% 
-  filter(Gender = "Female") />%
-  select[3:9] %>%
+blood_count %>% 
+  filter(gender == "Female") %>% 
+  select(hemoglobin:mchc) %>%
   colMeans(na.rm = T)
 ```
 
@@ -66,10 +68,10 @@ bloood_count %>%
 ```{r}
 
 blood_count %>%
-  pivot_wider(cols = [3:9], names_to = "Test", values_to = "Values") %>%
-  ggplot(aes(x = Gender, y = Values, fill = Gender)) +
+  pivot_longer(-c(age, gender), names_to = "Test", values_to = "Values") %>% 
+  ggplot(aes(x = Test, y = Values, fill = gender)) +
   geom_boxplot() +
-  facet(~ Test, scales = "free") 
+  facet_wrap(~Test, scales = "free") +
   labs(title = "Boxplot of Blood Count Tests",
        x = "Test",
        y = "Values")
@@ -79,12 +81,12 @@ blood_count %>%
 7. 
 ```{r}
 grouped_bc <- blood_count %>%
-  change(Age_Group = case_when(
-    Age >= 20 & Age <= 29 ~ "20s",
-    Age >= 30 & Age <= 39 ~ "30s",
-    Age >= 40 & Age <= 49 ~ "40s",
-    Age >= 50 & Age <= 59 ~ "50s",
-    Age >= 60 & Age <= 70 ~ "60s")) # there were only 4 people in 70s, so I combined it with 60s
+  mutate(age_group = case_when(
+    age >= 20 & age <= 29 ~ "20s",
+    age >= 30 & age <= 39 ~ "30s",
+    age >= 40 & age <= 49 ~ "40s",
+    age >= 50 & age <= 59 ~ "50s",
+    age >= 60 & age <= 70 ~ "60s")) # there were only 4 people in 70s, so I combined it with 60s
 
 head(grouped_bc)
 
@@ -92,11 +94,11 @@ head(grouped_bc)
 
 8. 
 ```{r}
-blood_count %>%
-  pivot_longer(cols = 3:9, names_to = "Test", values_to = "Values") %>%
-  ggplot(ase(x = Age_Group, y = values, fill = Age_Group)) +
+grouped_bc %>%
+  pivot_longer(-c(age, gender,age_group), names_to = "Test", values_to = "Values") %>%
+  ggplot(aes(x = age_group, y = Values, fill = age_group)) +
   geom_boxplot() +
-  facet_wrap( Test, scales = "free") +  # Facet by the "Test" variable
+  facet_wrap(~Test, scales = "free") +  # Facet by the "Test" variable
   labs(title = "Boxplot of Blood Count Tests by Age Group",
        x = "Age Group",
        y = "Values")
@@ -104,8 +106,11 @@ blood_count %>%
 ```
 9. What are two drawbacks and two benefits of AI?
 
+Two drawbacks are that the AI doesn't always know what your end goal is so often it could give incorrect answers. Another is that it causes people to rely on them and learn less. Two benefits: it makes work easier and faster, especially in coding. 
+
 10. Do you think you will use AI for coding in the future? Why or why not?
 
+I think I would use it if I am seriously stuck on a code. I think it can be useful.
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences. 
